@@ -16,6 +16,8 @@ class ContactForm extends Model
     public $body;
     public $verifyCode;
     public $no_phone;
+    public $media_social;
+    public $username;
 
 
     /**
@@ -28,6 +30,7 @@ class ContactForm extends Model
             [['name', 'email', 'subject', 'body', 'no_phone'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
+            [['media_social', 'username'], 'safe'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
@@ -62,5 +65,11 @@ class ContactForm extends Model
             return true;
         }
         return false;
+    }
+
+    public static function mediaSocial()
+    {
+        $media_social = ['Instagram' => 'Instagram', 'Facebook' => 'Facebook', 'Twitter' => 'Twitter', 'Youtube' => 'Youtube'];
+        return $media_social;
     }
 }

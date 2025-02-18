@@ -53,11 +53,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <!-- <input type="text" id="contactform-subject" class="form-control is-invalid" name="ContactForm[subject]" aria-required="true" aria-invalid="true"> -->
 
+            <?= $form->field($model, 'media_social')->dropDownList( $mediaSocial,['class' => 'form-control', 'prompt' => 'Select item']) ?>
+
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+
             <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
 
             <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                    ]) ?>
+                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+                ]) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
