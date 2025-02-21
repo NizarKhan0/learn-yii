@@ -1,0 +1,8 @@
+<!-- pergi path/directory -->
+http://localhost/learn-yii/basic/web//
+
+<!-- serve -->
+php yii serve
+php yii serve --port=8888
+
+http://localhost:8080/

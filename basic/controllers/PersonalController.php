@@ -40,6 +40,13 @@ class PersonalController extends Controller
     {
         $searchModel = new PersonalSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        //debug
+        // echo "<pre>";
+        // print_r($dataProvider->models);
+        // die;
+
+        //bole filter dari sini buat query
+        // $dataProvider->query->where(['gender' => 'male']);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

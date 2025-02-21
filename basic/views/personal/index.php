@@ -26,23 +26,44 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_personal',
-            'full_name',
-            'name',
+            // nama field dari database
+            // 'id_personal',
+            [
+                // 'header' => 'Nama Penuh',
+                'label' => 'Nama Penuh',
+                //utk header table
+                'headerOptions' => ['style' => 'width: 200px', 'class' => 'text-center'],
+                //utk isi table
+                // 'contentOptions' => ['class' => 'text-center'],
+                'value' => function($model) {
+                    // echo '<pre>';
+                    // print_r($model);
+                    // exit;
+                    return $model->full_name;
+                }
+            ],
+            // 'full_name',
+            // 'name',
             'gender',
             'birth_location',
-            'birth_date',
-            'martial_status',
+            [
+                'header' => 'Tarikh Lahir',
+                'headerOptions' => ['style' => 'width: 200px', 'class' => 'text-center'],
+                'value' => function($model) {
+                    return date('d-M-Y', strtotime($model->birth_date));
+                }
+            ],
+            // 'martial_status',
             //'religion',
             //'education',
-            //'address',
-            //'no_ic',
-            //'no_phone',
-            //'email:email',
+            'address',
+            'no_ic',
+            'no_phone',
+            'email:email',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Personal $model, $key, $index, $column) {
