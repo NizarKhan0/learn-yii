@@ -9,9 +9,25 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        // letak view supaya dia by default ( macam dalam filament kena override)
+        // 'view' => [
+        //     'theme' => [
+        //         'pathMap' => [
+        //             '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
+        //         ],
+        //     ],
+        // ],
+
+        //utk pretty url kena enable/on kan ni
+        'urlManager' => [
+            'enablePrettyUrl' => true,    // Enable pretty URLs
+            'showScriptName' => false,    // Hide "index.php"
+            'rules' => [],                // You can add custom URL rules here
+        ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '456n8fmZd1S1cyouRHAsQKcg_uSWr9aq',
