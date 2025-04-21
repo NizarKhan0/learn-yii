@@ -105,6 +105,8 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+
+        // mediaSocial from model ContactForm
         $mediaSocial = ContactForm::mediaSocial();
         // echo "<pre>";
         // print_r($mediaSocial);

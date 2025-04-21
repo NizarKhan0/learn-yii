@@ -51,6 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'subject') ?>
 
+            <!-- dari inspect element html -->
+            <!-- <label class="control-label" for="contactform-subject">Subject</label> -->
             <!-- <input type="text" id="contactform-subject" class="form-control is-invalid" name="ContactForm[subject]" aria-required="true" aria-invalid="true"> -->
 
             <?= $form->field($model, 'media_social')->dropDownList( $mediaSocial,['class' => 'form-control', 'prompt' => 'Select item']) ?>

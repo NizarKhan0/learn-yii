@@ -26,19 +26,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+
+        // function search
         // 'filterModel' => $searchModel,
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             // nama field dari database
             // 'id_personal',
             [
+                // can use header@lable
                 // 'header' => 'Nama Penuh',
                 'label' => 'Nama Penuh',
-                //utk header table
+
+                //for style header
                 'headerOptions' => ['style' => 'width: 200px', 'class' => 'text-center'],
-                //utk isi table
+
+                //for style content in table
                 // 'contentOptions' => ['class' => 'text-center'],
+
                 'value' => function($model) {
                     // echo '<pre>';
                     // print_r($model);
@@ -63,12 +70,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             'no_ic',
             'no_phone',
-            'email:email',
+            // 'email:email',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Personal $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_personal' => $model->id_personal]);
-                 }
+                },
             ],
         ],
     ]); ?>

@@ -6,3 +6,16 @@ php yii serve
 php yii serve --port=8888
 
 http://localhost:8080/
+
+<!-- Gii Generator -->
+
+http://localhost:8080/index.php?r=gii
+
+$config = [ ... ];
+
+if (YII_ENV_DEV) {
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+    ];
+}

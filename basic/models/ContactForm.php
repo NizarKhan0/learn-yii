@@ -42,6 +42,8 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
+            // macam laravel
+            // 'name' => 'Nama',
             'verifyCode' => 'Verification Code',
         ];
     }
