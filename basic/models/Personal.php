@@ -41,6 +41,9 @@ class Personal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            //add rules here required like laravel
+            [['full_name', 'gender','no_phone', 'email'], 'required'],
+            
             [['full_name', 'name', 'gender', 'birth_location', 'birth_date', 'martial_status', 'religion', 'education', 'address', 'no_ic', 'no_phone', 'email'], 'default', 'value' => null],
             [['birth_date'], 'safe'],
             [['full_name', 'name', 'gender', 'birth_location', 'martial_status', 'religion', 'education', 'address', 'no_ic', 'no_phone', 'email'], 'string', 'max' => 120],
