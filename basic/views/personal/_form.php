@@ -20,29 +20,62 @@ use yii\widgets\ActiveForm;
         <br>
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
+        <!-- total row in column max 12 -->
+        <div class="row">
+            <div class="col-md-4 col-xs-6">
+                <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-2 col-xs-6">
+                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-6">
+                <?= $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'birth_location')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-6">
+                <?= $form->field($model, 'birth_location')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
 
-        <?= $form->field($model, 'birth_date')->textInput() ?>
+        <!-- total row in column max 12 -->
+        <div class="row">
+            <div class="col-md-4 col-xs-6">
+                <?= $form->field($model, 'birth_date')->textInput() ?>
+            </div>
 
-        <?= $form->field($model, 'martial_status')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-2 col-xs-6">
+                <?= $form->field($model, 'martial_status')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'religion')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-6">
+                <?= $form->field($model, 'religion')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'education')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-6">
+                <?= $form->field($model, 'education')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
 
-        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+        <!-- total row in column max 12 -->
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <?= $form->field($model, 'address')->textarea(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'no_ic')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-2 col-xs-6 ">
+                <?= $form->field($model, 'no_ic')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'no_phone')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-6">
+                <?= $form->field($model, 'no_phone')->textInput(['maxlength' => true]) ?>
+            </div>
 
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-6">
+                <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
 
         <div class="ln_solid"></div>
 
@@ -50,13 +83,7 @@ use yii\widgets\ActiveForm;
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>
     </div>
-</div>
 
-<div class="personal-form">
-
-
-
-
+    <?php ActiveForm::end(); ?>
 </div>

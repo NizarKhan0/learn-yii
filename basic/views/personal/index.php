@@ -72,6 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'no_phone',
             // 'email:email',
             [
+                'header' => 'Action',
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Personal $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_personal' => $model->id_personal]);
