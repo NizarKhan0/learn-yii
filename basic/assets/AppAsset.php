@@ -25,9 +25,11 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'custom/vendors/switchery/dist/switchery.min.css',
         'custom/build/css/custom.min.css',
+        'custom/vendors/iCheck/skins/flat/green.css',
     ];
     public $js = [
         'custom/vendors/switchery/dist/switchery.min.js',
+        'custom/vendors/iCheck/icheck.min.js',
     ];
     public $depends = [
         // 'yii\web\YiiAsset',

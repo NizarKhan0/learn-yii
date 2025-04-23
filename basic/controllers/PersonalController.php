@@ -77,12 +77,37 @@ class PersonalController extends Controller
         $model = new Personal();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())
+                && $model->save()) {
+                //utk check data success ke tak
+                // echo "<pre>";
+                // print_r($model);
+                // exit;
+                // dd($model->attributes);
+                // dd($this->request->post());
                 return $this->redirect(['view', 'id_personal' => $model->id_personal]);
             }
         } else {
             $model->loadDefaultValues();
         }
+
+        
+        // Then you can't inspect what's going on in between. The && makes it one atomic operation 
+        // — if something fails, it won't tell you why unless you dig deeper.
+        // Handle different types of failures separately (e.g., load() fails vs save() fails).
+        // if ($this->request->isPost) {
+        //     if ($model->load($this->request->post())) {
+        //         // Debug post data
+        //         dd($this->request->post());
+                
+        //         // Or debug model attributes
+        //         dd($model->attributes);
+                
+        //         if ($model->save()) {
+        //             return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+        //         }
+        //     }
+        // }
 
         return $this->render('create', [
             'model' => $model,

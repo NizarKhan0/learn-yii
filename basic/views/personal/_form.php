@@ -30,11 +30,18 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             </div>
 
-            <div class="col-md-3 col-xs-6">
-                <?= $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-3 col-xs-7">
+                <label>Gender:</label>
+                <p>
+                    Male:
+                    <input type="radio" class="flat" name="Personal[gender]" id="genderM" value="Male" checked="" required /> 
+                    Female:
+                    <input type="radio" class="flat" name="Personal[gender]" id="genderF" value="Female" />
+                </p>
+                <?php // $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
             </div>
 
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-5">
                 <?= $form->field($model, 'birth_location')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
@@ -77,11 +84,11 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
 
-        <div class="">
+        <!-- <div class="">
             <label>
                 <input type="checkbox" class="js-switch" checked /> Checked
             </label>
-        </div>
+        </div> -->
 
         <div class="ln_solid"></div>
 
