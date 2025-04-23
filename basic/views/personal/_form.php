@@ -77,6 +77,12 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
 
+        <div class="">
+            <label>
+                <input type="checkbox" class="js-switch" checked /> Checked
+            </label>
+        </div>
+
         <div class="ln_solid"></div>
 
         <div class="form-group">

@@ -19,13 +19,20 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+    
+    // for register assest the base url is in folder web like laravel in folder public
     public $css = [
         'css/site.css',
+        'custom/vendors/switchery/dist/switchery.min.css',
+        'custom/build/css/custom.min.css',
     ];
     public $js = [
+        'custom/vendors/switchery/dist/switchery.min.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset'
+        // 'yii\web\YiiAsset',
+        // 'yii\bootstrap\BootstrapAsset',
+        'yiister\gentelella\assets\ThemeAsset',
+        'yiister\gentelella\assets\ExtensionAsset',
     ];
 }
