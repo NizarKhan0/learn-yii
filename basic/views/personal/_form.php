@@ -31,14 +31,23 @@ use yii\widgets\ActiveForm;
             </div>
 
             <div class="col-md-3 col-xs-7">
-                <label>Gender:</label>
+                <!-- <label>Gender:</label>
                 <p>
                     Male:
                     <input type="radio" class="flat" name="Personal[gender]" id="genderM" value="Male" checked="" required /> 
                     Female:
                     <input type="radio" class="flat" name="Personal[gender]" id="genderF" value="Female" />
-                </p>
-                <?php // $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
+                </p> -->
+                <?= $form->field($model, 'gender', )->radioList(['Male' => 'Male', 'Female' => 'Female'], [
+                    'item' => function ($index, $label, $name, $checked, $value) {
+                        //untuk debug
+                        // echo $value;
+                        // die();
+
+                        return '<input type="radio" class="flat" name="' . $name . '" id="' . $name . $index . '" value="' . $value . '" ' . ($checked ? 'checked' : '') . ' required />' .
+                            '<label for="' . $name . $index . '">' . ucwords($label) . '</label>';
+                    }
+                ])?>
             </div>
 
             <div class="col-md-3 col-xs-5">

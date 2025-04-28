@@ -19,3 +19,6 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
     ];
 }
+
+//cara comment
+<?php // $form->field($model, 'gender')->radioList(['Male' => 'Male', 'Female' => 'Female']) ?>
