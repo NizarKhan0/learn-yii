@@ -8,6 +8,13 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
+<!-- Option 1 custom inline css yii2 -->
+<!-- <style>
+label {
+    margin-right: 30px;
+}
+</style> -->
+
 <div class="x_panel">
     <div class="x_title">
 
@@ -44,8 +51,9 @@ use yii\widgets\ActiveForm;
                         // echo $value;
                         // die();
 
+                        //Option 2 custom inline css yii2
                         return '<input type="radio" class="flat" name="' . $name . '" id="' . $name . $index . '" value="' . $value . '" ' . ($checked ? 'checked' : '') . ' required />' .
-                            '<label for="' . $name . $index . '">' . ucwords($label) . '</label>';
+                            '<label style = "margin-right: 30px" for="' . $name . $index . '">' . ucwords($label) . '</label>';
                     }
                 ])?>
             </div>
