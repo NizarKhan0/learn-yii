@@ -18,7 +18,9 @@
         "yiisoft/yii2": "~2.0.45",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "bower-asset/bootstrap": "^3.4.1",
-        "yiister/yii2-gentelella": "~1.0"
+        "yiister/yii2-gentelella": "~1.0",
+        "kartik-v/yii2-widget-datetimepicker": "dev-master",
+        "kartik-v/yii2-widget-datepicker": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

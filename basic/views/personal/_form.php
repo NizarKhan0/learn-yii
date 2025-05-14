@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var app\models\Personal $model */
@@ -66,7 +67,16 @@ label {
         <!-- total row in column max 12 -->
         <div class="row">
             <div class="col-md-4 col-xs-6">
-                <?= $form->field($model, 'birth_date')->textInput() ?>
+                <!-- <?= $form->field($model, 'birth_date')->textInput() ?> -->
+                <!-- Usage with model and Active Form (with no default initial value) -->
+                <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
+                'options' => ['placeholder' => 'Choose birth date'], // or 'php:Y-m-d'
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd', // or 'php:Y-m-d'
+                    'autoclose' => true,
+                    'todayHighlight' => true,
+                ],
+            ]); ?>
             </div>
 
             <div class="col-md-2 col-xs-6">

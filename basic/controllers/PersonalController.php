@@ -79,11 +79,13 @@ class PersonalController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())
                 && $model->save()) {
+                // $model->birth_date = \Yii::$app->formatter->asDate($model->birth_date, 'yyyy-MM-dd');
+                // $model->save();
                 //utk check data success ke tak
                 // echo "<pre>";
                 // print_r($model);
                 // exit;
-                // dd($model->attributes);
+                dd($model->attributes);
                 // dd($this->request->post());
                 return $this->redirect(['view', 'id_personal' => $model->id_personal]);
             }
@@ -124,6 +126,7 @@ class PersonalController extends Controller
     public function actionUpdate($id_personal)
     {
         $model = $this->findModel($id_personal);
+        // $model->birth_date = date('d-M-Y', strtotime($model->birth_date));
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_personal' => $model->id_personal]);
