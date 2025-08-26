@@ -82,7 +82,8 @@ label {
 
             <div class="col-md-2 col-xs-6">
                 <?= $form->field($model, 'martial_status')->widget(Select2::class, [
-                    'data' => ['Single' => 'Single', 'Married' => 'Married', 'Divorced' => 'Divorced', 'Widowed' => 'Widowed'],
+                    // 'data' => ['Single' => 'Single', 'Married' => 'Married', 'Divorced' => 'Divorced', 'Widowed' => 'Widowed'],
+                    'data' => $martialStatus,
                     'options' => ['placeholder' => 'Select a martial status....'],
                     'pluginOptions' => [
                         'allowClear' => true,
@@ -93,11 +94,30 @@ label {
             </div>
 
             <div class="col-md-3 col-xs-6">
-                <?= $form->field($model, 'religion')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'religion')->widget(Select2::class, [
+                    // 'data' => ['Single' => 'Single', 'Married' => 'Married', 'Divorced' => 'Divorced', 'Widowed' => 'Widowed'],
+                    'data' => $religion,
+                    'options' => ['placeholder' => 'Select religion'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        // 'hideSearch' => true,
+                        // 'multiple' => false
+                    ],
+                ]); ?>
             </div>
 
             <div class="col-md-3 col-xs-6">
-                <?= $form->field($model, 'education')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'education')->widget(Select2::class, [
+                    // 'data' => ['Single' => 'Single', 'Married' => 'Married', 'Divorced' => 'Divorced', 'Widowed' => 'Widowed'],
+                    'data' => $education,
+                    // 'data' => $getDataFromModel,
+                    'options' => ['placeholder' => 'Select education level'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        // 'hideSearch' => true,
+                        // 'multiple' => false
+                    ],
+                ]); ?>
             </div>
         </div>
 

@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\Personal;
-use app\models\PersonalSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Personal;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use app\models\PersonalSearch;
+use Faker\Provider\ar_EG\Person;
+use yii\web\NotFoundHttpException;
 
 /**
  * PersonalController implements the CRUD actions for Personal model.
@@ -75,6 +77,17 @@ class PersonalController extends Controller
     public function actionCreate()
     {
         $model = new Personal();
+        $martialStatus = Personal::MARTIAL_STATUS;
+        // print_r($martialStatus);
+        // die;
+        $religion = Personal::RELIGION;
+        $education = Personal::EDUCATION;
+
+        // Or if you want to use full_name as both value and label
+        // $getDataFromModel = ArrayHelper::map(Personal::find()->select(['full_name'])->asArray()->all(), 'full_name', 'full_name');
+        // echo "<pre>";
+        // print_r($getDataFromModel);
+        // die;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())
@@ -85,7 +98,7 @@ class PersonalController extends Controller
                 // echo "<pre>";
                 // print_r($model);
                 // exit;
-                dd($model->attributes);
+                // dd($model->attributes);
                 // dd($this->request->post());
                 return $this->redirect(['view', 'id_personal' => $model->id_personal]);
             }
@@ -113,6 +126,10 @@ class PersonalController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'martialStatus' => $martialStatus,
+            'religion' => $religion,
+            'education' => $education,
+            // 'getDataFromModel' => $getDataFromModel,
         ]);
     }
 
@@ -127,6 +144,11 @@ class PersonalController extends Controller
     {
         $model = $this->findModel($id_personal);
         // $model->birth_date = date('d-M-Y', strtotime($model->birth_date));
+        $martialStatus = Personal::MARTIAL_STATUS;
+        // print_r($martialStatus);
+        // die;
+        $religion = Personal::RELIGION;
+        $education = Personal::EDUCATION;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_personal' => $model->id_personal]);
@@ -134,6 +156,10 @@ class PersonalController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'martialStatus' => $martialStatus,
+            'religion' => $religion,
+            'education' => $education,
+            // 'getDataFromModel' => $getDataFromModel,
         ]);
     }
 
