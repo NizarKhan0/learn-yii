@@ -101,8 +101,14 @@ class Personal extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+    // public function getStaffs()
+    // {
+    //     return $this->hasMany(Staff::class, ['id_personal' => 'id_personal']);
+    // }
+
+    // 1 staff to 1 personal
     public function getStaff()
     {
-        return $this->hasMany(Staff::class, ['id_personal' => 'id_personal']);
+        return $this->hasOne(Staff::class, ['id_personal' => 'id_personal']);
     }
 }
