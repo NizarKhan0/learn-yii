@@ -1,8 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use kartik\select2\Select2;
+use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Personal $model */
@@ -46,7 +47,7 @@ label {
                     Female:
                     <input type="radio" class="flat" name="Personal[gender]" id="genderF" value="Female" />
                 </p> -->
-                <?= $form->field($model, 'gender', )->radioList(['Male' => 'Male', 'Female' => 'Female'], [
+                <?= $form->field($model, 'gender',)->radioList(['Male' => 'Male', 'Female' => 'Female'], [
                     'item' => function ($index, $label, $name, $checked, $value) {
                         //untuk debug
                         // echo $value;
@@ -56,7 +57,7 @@ label {
                         return '<input type="radio" class="flat" name="' . $name . '" id="' . $name . $index . '" value="' . $value . '" ' . ($checked ? 'checked' : '') . ' required />' .
                             '<label style = "margin-right: 30px" for="' . $name . $index . '">' . ucwords($label) . '</label>';
                     }
-                ])?>
+                ]) ?>
             </div>
 
             <div class="col-md-3 col-xs-5">
@@ -70,17 +71,25 @@ label {
                 <!-- <?= $form->field($model, 'birth_date')->textInput() ?> -->
                 <!-- Usage with model and Active Form (with no default initial value) -->
                 <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
-                'options' => ['placeholder' => 'Choose birth date'], // or 'php:Y-m-d'
-                'pluginOptions' => [
-                    'format' => 'yyyy-mm-dd', // or 'php:Y-m-d'
-                    'autoclose' => true,
-                    'todayHighlight' => true,
-                ],
-            ]); ?>
+                    'options' => ['placeholder' => 'Choose birth date'], // or 'php:Y-m-d'
+                    'pluginOptions' => [
+                        'format' => 'yyyy-mm-dd', // or 'php:Y-m-d'
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                    ],
+                ]); ?>
             </div>
 
             <div class="col-md-2 col-xs-6">
-                <?= $form->field($model, 'martial_status')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'martial_status')->widget(Select2::class, [
+                    'data' => ['Single' => 'Single', 'Married' => 'Married', 'Divorced' => 'Divorced', 'Widowed' => 'Widowed'],
+                    'options' => ['placeholder' => 'Select a martial status....'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        // 'hideSearch' => true,
+                        // 'multiple' => false
+                    ],
+                ]); ?>
             </div>
 
             <div class="col-md-3 col-xs-6">
