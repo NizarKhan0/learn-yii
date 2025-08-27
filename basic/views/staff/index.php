@@ -36,22 +36,35 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id_personal',
 
             // cara 1
-            'personal.full_name',
+            // 'personal.full_name',
+            [
+                'attribute' => 'full_name',
+                'value' => function($model){
+                    return $model->personal->full_name;
+                }
+            ],
 
             // cara 2
             [
-                'attribute' => 'personal.gender',
+                'attribute' => 'gender',
                 'headerOptions' => ['style' => 'text-align:center;'],
                 'contentOptions' => ['style' => 'text-align:center;'],
+                'value' => function($model){
+                    return $model->personal->gender;
+                }
             ],
             [
-                'attribute' => 'personal.address',
+                'attribute' => 'address',
                 'headerOptions' => ['style' => 'width:150px;'],
+                'value' => function($model){
+                    return $model->personal->address;
+                }
             ],
 
             // cara 3
             [
                 'label' => 'IC Number',
+                'attribute' => 'no_ic',
                 'value' => function($model) {
                     return $model->personal->no_ic;
                 }

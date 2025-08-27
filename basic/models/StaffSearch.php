@@ -11,6 +11,10 @@ use app\models\Staff;
  */
 class StaffSearch extends Staff
 {
+    // tambah kat variable baru kalau nak buat search lain (rekod dari table lain mcm laravel)
+    public $full_name;
+    public $address;
+    public $no_ic;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +22,8 @@ class StaffSearch extends Staff
     {
         return [
             [['id_staff', 'id_personal', 'salary'], 'integer'],
-            [['staff_category', 'staff_status', 'department', 'start_date'], 'safe'],
+            // tambah kat rules baru kalau nak buat search lain
+            [['staff_category', 'staff_status', 'department', 'start_date', 'full_name', 'address', 'no_ic'], 'safe'],
         ];
     }
 
@@ -42,6 +47,7 @@ class StaffSearch extends Staff
     public function search($params, $formName = null)
     {
         $query = Staff::find();
+        $query->leftJoin('personal', 'staff.id_personal = personal.id_personal');
 
         // add conditions that should always apply here
 
@@ -67,7 +73,10 @@ class StaffSearch extends Staff
 
         $query->andFilterWhere(['like', 'staff_category', $this->staff_category])
             ->andFilterWhere(['like', 'staff_status', $this->staff_status])
-            ->andFilterWhere(['like', 'department', $this->department]);
+            ->andFilterWhere(['like', 'department', $this->department])
+            ->andFilterWhere(['like', 'personal.full_name', $this->full_name])
+            ->andFilterWhere(['like', 'personal.address', $this->address])
+            ->andFilterWhere(['like', 'personal.no_ic', $this->no_ic]);
 
         return $dataProvider;
     }
