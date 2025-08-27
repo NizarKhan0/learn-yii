@@ -50,6 +50,8 @@ class Personal extends \yii\db\ActiveRecord
         'Master' => 'Master',
         'Doctorate' => 'Doctorate'
     ];
+
+    CONST GENDER = ['male' => 'Male', 'female' => 'Female'];
     
     /**
      * {@inheritdoc}

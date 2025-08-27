@@ -39,38 +39,57 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'personal.full_name',
             [
                 'attribute' => 'full_name',
-                'value' => function($model){
+                'value' => function ($model) {
                     return $model->personal->full_name;
                 }
             ],
 
+            [
+                'attribute' => 'personal.gender',
+                'headerOptions' => ['style' => 'width:140px;'],
+                //cara 1 buat manually
+                // 'filter' => Html::activeDropDownList($searchModel, 'gender', ['Male' => 'Male', 'Female' => 'Female'], ['class' => 'form-control', 'prompt' => '-Select-']),
+
+                //cara 2 buat dari constant dalam model Personal dan letak dicontroller
+                // 'filter' => Html::activeDropDownList($searchModel, 'gender', $listGender , ['class' => 'form-control', 'prompt' => '-Select-']),
+
+                //cara 3 buat dari constant dalam model Personal dan lterus declared kat view/tempat mana yg display
+                'filter' => Html::activeDropDownList($searchModel, 'gender', \app\models\Personal::GENDER, ['class' => 'form-control', 'prompt' => '-Select-']),
+            ],
+
             // cara 2
-            [
-                'attribute' => 'gender',
-                'headerOptions' => ['style' => 'text-align:center;'],
-                'contentOptions' => ['style' => 'text-align:center;'],
-                'value' => function($model){
-                    return $model->personal->gender;
-                }
-            ],
-            [
-                'attribute' => 'address',
-                'headerOptions' => ['style' => 'width:150px;'],
-                'value' => function($model){
-                    return $model->personal->address;
-                }
-            ],
+            // [
+            //     'attribute' => 'gender',
+            //     'headerOptions' => ['style' => 'text-align:center;'],
+            //     'contentOptions' => ['style' => 'text-align:center;'],
+            //     'value' => function ($model) {
+            //         return $model->personal->gender;
+            //     }
+            // ],
+            // [
+            //     'attribute' => 'address',
+            //     'headerOptions' => ['style' => 'width:150px;'],
+            //     'contentOptions' => ['style' => 'text-align:center;'],
+            //     'value' => function($model){
+            //         return $model->personal->address;
+            //     }
+            // ],
 
             // cara 3
             [
                 'label' => 'IC Number',
                 'attribute' => 'no_ic',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->personal->no_ic;
                 }
             ],
-            
-            'staff_category',
+
+            [
+                'attribute' => 'staff_category',
+                // 'headerOptions' => ['style' => 'width:140px;'],
+                'filter' => Html::activeDropDownList($searchModel, 'staff_category', $staffCategoryList,
+                ['class' => 'form-control', 'prompt' => '-Select-']),
+            ],
             'staff_status',
             'department',
             //'start_date',
@@ -79,7 +98,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Staff $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_staff' => $model->id_staff]);
-                }
+                },
+                'headerOptions' => ['style' => 'width:65px; text-align:center;'],
             ],
         ],
     ]); ?>

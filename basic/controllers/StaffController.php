@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Personal;
 use app\models\Staff;
-use app\models\StaffSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\StaffSearch;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * StaffController implements the CRUD actions for Staff model.
@@ -41,9 +43,18 @@ class StaffController extends Controller
         $searchModel = new StaffSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        // Fetch gender from model Personal that have delcared constant
+        $listGender = Personal::GENDER;
+
+        // Fetch staff categories from the database table 'staff'
+        $staffCategoryList = ArrayHelper::map(Staff::find()->all(), 'staff_category', 'staff_category');
+        // 'id' is the value, 'name' is the display text in the dropdown
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'staffCategoryList' => $staffCategoryList,
+            'listGender' => $listGender,
         ]);
     }
 

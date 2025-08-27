@@ -13,6 +13,7 @@ class StaffSearch extends Staff
 {
     // tambah kat variable baru kalau nak buat search lain (rekod dari table lain mcm laravel)
     public $full_name;
+    public $gender;
     public $address;
     public $no_ic;
     /**
@@ -23,7 +24,7 @@ class StaffSearch extends Staff
         return [
             [['id_staff', 'id_personal', 'salary'], 'integer'],
             // tambah kat rules baru kalau nak buat search lain
-            [['staff_category', 'staff_status', 'department', 'start_date', 'full_name', 'address', 'no_ic'], 'safe'],
+            [['staff_category', 'staff_status', 'department', 'start_date', 'full_name', 'gender', 'address', 'no_ic'], 'safe'],
         ];
     }
 
@@ -69,13 +70,23 @@ class StaffSearch extends Staff
             'id_personal' => $this->id_personal,
             'start_date' => $this->start_date,
             'salary' => $this->salary,
+
+            // boleh guna salah satu letak kat search query unutk staff_category
+            'staff_category' => $this->staff_category,
         ]);
 
-        $query->andFilterWhere(['like', 'staff_category', $this->staff_category])
+        $query
+            // boleh guna salah satu letak kat search query unutk staff_category
+            // ->andFilterWhere(['like', 'staff_category', $this->staff_category])
+            // ->andFilterWhere(['=', 'staff_category', trim($this->staff_category)])
             ->andFilterWhere(['like', 'staff_status', $this->staff_status])
             ->andFilterWhere(['like', 'department', $this->department])
+
+            //dari relation
             ->andFilterWhere(['like', 'personal.full_name', $this->full_name])
-            ->andFilterWhere(['like', 'personal.address', $this->address])
+            ->andFilterWhere(['=', 'personal.gender', $this->gender])
+            // ->andFilterWhere(['personal.gender' => $this->gender])
+            // ->andFilterWhere(['like', 'personal.address', $this->address])
             ->andFilterWhere(['like', 'personal.no_ic', $this->no_ic]);
 
         return $dataProvider;
