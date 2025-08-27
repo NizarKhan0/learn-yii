@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "personal".
@@ -112,5 +113,13 @@ class Personal extends \yii\db\ActiveRecord
     public function getStaff()
     {
         return $this->hasOne(Staff::class, ['id_personal' => 'id_personal']);
+    }
+
+    // get all personal for dropdown list 
+    public static function getAllPersonal()
+    {
+        $personal = Personal::find()->all();
+        $personal = ArrayHelper::map($personal, 'id_personal', 'full_name');
+        return $personal;
     }
 }

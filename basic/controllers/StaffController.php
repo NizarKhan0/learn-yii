@@ -46,9 +46,8 @@ class StaffController extends Controller
         // Fetch gender from model Personal that have delcared constant
         $listGender = Personal::GENDER;
 
-        // Fetch staff categories from the database table 'staff'
-        $staffCategoryList = ArrayHelper::map(Staff::find()->all(), 'staff_category', 'staff_category');
-        // 'id' is the value, 'name' is the display text in the dropdown
+        // Fetch staff categories from model Personal that have delcared constant
+        $staffCategoryList = Staff::STAFF_CATEGORIES;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -80,6 +79,14 @@ class StaffController extends Controller
     {
         $model = new Staff();
 
+        // Fetch staff categories from model Personal that have delcared constant
+        $staffCategoryList = Staff::STAFF_CATEGORIES;
+
+        $personalName = Personal::getAllPersonal();
+        // echo '<pre>';
+        // print_r($personalName);
+        // die;
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id_staff' => $model->id_staff]);
@@ -90,6 +97,8 @@ class StaffController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'staffCategoryList' => $staffCategoryList,
+            'personalName' => $personalName,
         ]);
     }
 
@@ -104,12 +113,19 @@ class StaffController extends Controller
     {
         $model = $this->findModel($id_staff);
 
+        // Fetch staff categories from model Personal that have delcared constant
+        $staffCategoryList = Staff::STAFF_CATEGORIES;
+
+        $personalName = Personal::getAllPersonal();
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_staff' => $model->id_staff]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'staffCategoryList' => $staffCategoryList,
+            'personalName' => $personalName,
         ]);
     }
 

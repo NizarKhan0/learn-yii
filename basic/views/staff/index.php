@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'staff_category',
                 // 'headerOptions' => ['style' => 'width:140px;'],
-                'filter' => Html::activeDropDownList($searchModel, 'staff_category', $staffCategoryList,
+                'filter' => Html::activeDropDownList($searchModel, 'staff_category', \app\models\Staff::STAFF_CATEGORIES,
                 ['class' => 'form-control', 'prompt' => '-Select-']),
             ],
             'staff_status',

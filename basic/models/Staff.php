@@ -19,7 +19,11 @@ use Yii;
  */
 class Staff extends \yii\db\ActiveRecord
 {
-
+    // Define constant for staff categories
+    const STAFF_CATEGORIES = [
+        'Non-Medical' => 'Non-Medical',
+        'Medical' => 'Medical',
+    ];
 
     /**
      * {@inheritdoc}
