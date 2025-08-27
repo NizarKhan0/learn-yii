@@ -51,7 +51,7 @@ AppAsset::register($this);
                     <!-- menu prile quick info -->
                     <div class="profile">
                         <div class="profile_pic">
-                            <img src="http://placehold.it/128x128" alt="..." class="img-circle profile_img">
+                            <img src="http://placehold.co/128x128" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
@@ -175,7 +175,7 @@ AppAsset::register($this);
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    <img src="http://placehold.it/128x128" alt="">John Doe
+                                    <img src="http://placehold.co/128x128" alt="">John Doe
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -205,7 +205,7 @@ AppAsset::register($this);
                                     <li>
                                         <a>
                                             <span class="image">
-                                                <img src="http://placehold.it/128x128" alt="Profile Image" />
+                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
                                             </span>
                                             <span>
                                                 <span>John Smith</span>
@@ -220,7 +220,7 @@ AppAsset::register($this);
                                     <li>
                                         <a>
                                             <span class="image">
-                                                <img src="http://placehold.it/128x128" alt="Profile Image" />
+                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
                                             </span>
                                             <span>
                                                 <span>John Smith</span>
@@ -235,7 +235,7 @@ AppAsset::register($this);
                                     <li>
                                         <a>
                                             <span class="image">
-                                                <img src="http://placehold.it/128x128" alt="Profile Image" />
+                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
                                             </span>
                                             <span>
                                                 <span>John Smith</span>
@@ -250,7 +250,7 @@ AppAsset::register($this);
                                     <li>
                                         <a>
                                             <span class="image">
-                                                <img src="http://placehold.it/128x128" alt="Profile Image" />
+                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
                                             </span>
                                             <span>
                                                 <span>John Smith</span>
