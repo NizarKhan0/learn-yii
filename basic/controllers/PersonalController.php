@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Staff;
 use yii\web\Controller;
 use app\models\Personal;
 use yii\filters\VerbFilter;
@@ -9,6 +10,7 @@ use yii\helpers\ArrayHelper;
 use app\models\PersonalSearch;
 use Faker\Provider\ar_EG\Person;
 use yii\web\NotFoundHttpException;
+use yii\db\Transaction;
 
 /**
  * PersonalController implements the CRUD actions for Personal model.
@@ -77,11 +79,20 @@ class PersonalController extends Controller
     public function actionCreate()
     {
         $model = new Personal();
+        $modelStaff = new Staff();
         $martialStatus = Personal::MARTIAL_STATUS;
         // print_r($martialStatus);
         // die;
         $religion = Personal::RELIGION;
         $education = Personal::EDUCATION;
+        // Fetch staff categories from model Personal that have delcared constant
+        $staffCategoryList = Staff::STAFF_CATEGORIES;
+        $personalName = Personal::getAllPersonal();
+
+        // echo '<pre>';
+        // print_r($_POST);
+        // echo '</pre>';
+        // die;
 
         // Or if you want to use full_name as both value and label
         // $getDataFromModel = ArrayHelper::map(Personal::find()->select(['full_name'])->asArray()->all(), 'full_name', 'full_name');
@@ -90,23 +101,53 @@ class PersonalController extends Controller
         // die;
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post())
-                && $model->save()) {
-                // $model->birth_date = \Yii::$app->formatter->asDate($model->birth_date, 'yyyy-MM-dd');
-                // $model->save();
-                //utk check data success ke tak
-                // echo "<pre>";
-                // print_r($model);
-                // exit;
-                // dd($model->attributes);
-                // dd($this->request->post());
-                return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+            // Begin transaction
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                // Load and save first model
+                if ($model->load($this->request->post()) && $model->save()) {
+
+                    // echo "<pre>";
+                    // print_r($model->attributes);
+                    // die;
+
+                    // Now load and save second model, link if needed
+                    if ($modelStaff->load($this->request->post())) {
+
+                        // Set foreign key
+                        $modelStaff->id_personal = $model->id_personal;
+                        // echo "<pre>";
+                        // print_r($modelStaff->attributes);
+                        // die;
+
+                        // Jika ada relationship, set foreign key
+                        // $modelStaff->id_personal = $model->id_personal;
+                        if ($modelStaff->save()) {
+                            // Commit transaction jika semua sukses
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+                        } else {
+                            // Jika modelStaff gagal disimpan
+                            throw new \Exception('Failed to save staff model');
+                        }
+                    } else {
+                        throw new \Exception('Failed to load staff data');
+                    }
+                } else {
+                    throw new \Exception('Failed to save personal data');
+                }
+            } catch (\Exception $e) {
+                // Rollback transaction jika ada error
+                $transaction->rollBack();
+                // Tampilkan error atau handle sesuai kebutuhan
+                \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         } else {
             $model->loadDefaultValues();
+            $modelStaff->loadDefaultValues();
         }
 
-        
+
         // Then you can't inspect what's going on in between. The && makes it one atomic operation 
         // — if something fails, it won't tell you why unless you dig deeper.
         // Handle different types of failures separately (e.g., load() fails vs save() fails).
@@ -114,10 +155,10 @@ class PersonalController extends Controller
         //     if ($model->load($this->request->post())) {
         //         // Debug post data
         //         dd($this->request->post());
-                
+
         //         // Or debug model attributes
         //         dd($model->attributes);
-                
+
         //         if ($model->save()) {
         //             return $this->redirect(['view', 'id_personal' => $model->id_personal]);
         //         }
@@ -126,10 +167,12 @@ class PersonalController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelStaff' => $modelStaff,
             'martialStatus' => $martialStatus,
             'religion' => $religion,
             'education' => $education,
-            // 'getDataFromModel' => $getDataFromModel,
+            'personalName' => $personalName,
+            'staffCategoryList' => $staffCategoryList,
         ]);
     }
 
@@ -140,26 +183,66 @@ class PersonalController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_personal)
+    public function actionUpdate($id_personal) // WAJIB ada ID untuk update
     {
+        // 1. Cari model utama (Personal) berdasarkan ID
         $model = $this->findModel($id_personal);
-        // $model->birth_date = date('d-M-Y', strtotime($model->birth_date));
+
+        // 2. Cari model kedua (Staff) yang related
+        // Andaian: Setiap Personal mempunyai SATU Staff profile
+        $modelStaff = Staff::find()->where(['id_personal' => $id_personal])->one();
+
         $martialStatus = Personal::MARTIAL_STATUS;
         // print_r($martialStatus);
         // die;
         $religion = Personal::RELIGION;
         $education = Personal::EDUCATION;
+        // Fetch staff categories from model Personal that have delcared constant
+        $staffCategoryList = Staff::STAFF_CATEGORIES;
+        $personalName = Personal::getAllPersonal();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+
+        // Jika tidak jumpa, create baru (fallback - optional)
+        if ($modelStaff === null) {
+            $modelStaff = new Staff();
+            $modelStaff->id_personal = $id_personal; // Set foreign key
         }
 
+        // 3. Handle form submission
+        if ($this->request->isPost) {
+
+            // MUATNAIKAN (LOAD) data dari form
+            $model->load($this->request->post());
+            $modelStaff->load($this->request->post());
+
+            // BEGIN TRANSACTION untuk ensure consistency
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                // SIMPAN kedua-dua model
+                if ($model->save() && $modelStaff->save()) {
+                    $transaction->commit(); // Commit jika semua berjaya
+                    \Yii::$app->session->setFlash('success', 'Data updated successfully.');
+                    return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+                } else {
+                    // Jika save gagal, throw exception dengan error messages
+                    $errors = array_merge($model->getFirstErrors(), $modelStaff->getFirstErrors());
+                    throw new \yii\base\Exception(implode(', ', $errors));
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack(); // Rollback jika ada error
+                \Yii::$app->session->setFlash('error', 'Update failed: ' . $e->getMessage());
+            }
+        }
+
+        // 4. Render form
         return $this->render('update', [
             'model' => $model,
+            'modelStaff' => $modelStaff,
             'martialStatus' => $martialStatus,
             'religion' => $religion,
             'education' => $education,
-            // 'getDataFromModel' => $getDataFromModel,
+            'personalName' => $personalName,
+            'staffCategoryList' => $staffCategoryList,
         ]);
     }
 
@@ -184,6 +267,7 @@ class PersonalController extends Controller
      * @return Personal the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+    // Helper function untuk find model Personal
     protected function findModel($id_personal)
     {
         if (($model = Personal::findOne(['id_personal' => $id_personal])) !== null) {
