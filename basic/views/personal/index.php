@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         // function search
         // 'filterModel' => $searchModel,
-
+    
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -45,13 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 //for style content in table
                 // 'contentOptions' => ['class' => 'text-center'],
-
-                'value' => function($model) {
-                    // echo '<pre>';
-                    // print_r($model);
-                    // exit;
-                    return $model->full_name;
-                }
+    
+                'value' => function ($model) {
+                        // echo '<pre>';
+                        // print_r($model);
+                        // exit;
+                        return $model->full_name;
+                    }
             ],
             // 'full_name',
             // 'name',
@@ -60,8 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'header' => 'Tarikh Lahir',
                 'headerOptions' => ['style' => 'width: 200px', 'class' => 'text-center'],
-                'value' => function($model) {
-                    return date('d-M-Y', strtotime($model->birth_date));
+                'value' => function ($model) {
+                    //biasakan letak error handling kalau data tu kosong dari db
+                        return $model->birth_date ? date('d-M-Y', strtotime($model->birth_date)) : '-';
                 }
             ],
             // 'martial_status',

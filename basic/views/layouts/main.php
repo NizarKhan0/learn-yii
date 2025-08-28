@@ -6,7 +6,9 @@
  */
 
 use yii\helpers\Html;
+use app\widgets\Alert;
 use app\assets\AppAsset;
+use yii\widgets\Breadcrumbs;
 
 // appasset ni dari main-old by default
 AppAsset::register($this);
@@ -301,7 +303,13 @@ AppAsset::register($this);
                 <?php endif; ?>
                 <div class="clearfix"></div>
 
-                <?= $content ?>
+                <div class="container">
+                    <?php if (!empty($this->params['breadcrumbs'])): ?>
+                    <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
+                    <?php endif ?>
+                    <?= Alert::widget() ?>
+                    <?= $content ?>
+                </div>
             </div>
             <!-- /page content -->
             <!-- footer content -->

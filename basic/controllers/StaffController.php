@@ -2,9 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\Personal;
+use Yii;
 use app\models\Staff;
 use yii\web\Controller;
+use app\models\Personal;
 use app\models\StaffSearch;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -89,7 +90,13 @@ class StaffController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_staff' => $model->id_staff]);
+                if($model->save(false)) {
+                      Yii::$app->session->setFlash('success', 'Data created successfully.');
+                }else {
+                      Yii::$app->session->setFlash('error', 'Data invalid.');
+                }
+                return $this->redirect(['staff/index']);
+                // return $this->redirect(['view', 'id_staff' => $model->id_staff]);
             }
         } else {
             $model->loadDefaultValues();
@@ -119,6 +126,7 @@ class StaffController extends Controller
         $personalName = Personal::getAllPersonal();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Data updated successfully.');
             return $this->redirect(['view', 'id_staff' => $model->id_staff]);
         }
 
@@ -139,7 +147,7 @@ class StaffController extends Controller
     public function actionDelete($id_staff)
     {
         $this->findModel($id_staff)->delete();
-
+        Yii::$app->session->setFlash('success', 'Data deleted successfully.');
         return $this->redirect(['index']);
     }
 

@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Staff;
+use yii\db\Transaction;
 use yii\web\Controller;
 use app\models\Personal;
 use yii\filters\VerbFilter;
@@ -10,7 +12,6 @@ use yii\helpers\ArrayHelper;
 use app\models\PersonalSearch;
 use Faker\Provider\ar_EG\Person;
 use yii\web\NotFoundHttpException;
-use yii\db\Transaction;
 
 /**
  * PersonalController implements the CRUD actions for Personal model.
@@ -125,7 +126,13 @@ class PersonalController extends Controller
                         if ($modelStaff->save()) {
                             // Commit transaction jika semua sukses
                             $transaction->commit();
-                            return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+                            
+                            // Tampilkan pesan sukses
+                            Yii::$app->session->setFlash('success', 'Data created successfully.');
+
+                            return $this->redirect(['personal/index']);
+                            //ini untuk redirect ke view id yg bnaru dibuat
+                            // return $this->redirect(['view', 'id_personal' => $model->id_personal]);
                         } else {
                             // Jika modelStaff gagal disimpan
                             throw new \Exception('Failed to save staff model');
@@ -140,30 +147,13 @@ class PersonalController extends Controller
                 // Rollback transaction jika ada error
                 $transaction->rollBack();
                 // Tampilkan error atau handle sesuai kebutuhan
-                \Yii::$app->session->setFlash('error', $e->getMessage());
+                Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->redirect(Yii::$app->request->referrer);
             }
         } else {
             $model->loadDefaultValues();
             $modelStaff->loadDefaultValues();
         }
-
-
-        // Then you can't inspect what's going on in between. The && makes it one atomic operation 
-        // — if something fails, it won't tell you why unless you dig deeper.
-        // Handle different types of failures separately (e.g., load() fails vs save() fails).
-        // if ($this->request->isPost) {
-        //     if ($model->load($this->request->post())) {
-        //         // Debug post data
-        //         dd($this->request->post());
-
-        //         // Or debug model attributes
-        //         dd($model->attributes);
-
-        //         if ($model->save()) {
-        //             return $this->redirect(['view', 'id_personal' => $model->id_personal]);
-        //         }
-        //     }
-        // }
 
         return $this->render('create', [
             'model' => $model,
@@ -222,7 +212,8 @@ class PersonalController extends Controller
                 if ($model->save() && $modelStaff->save()) {
                     $transaction->commit(); // Commit jika semua berjaya
                     \Yii::$app->session->setFlash('success', 'Data updated successfully.');
-                    return $this->redirect(['view', 'id_personal' => $model->id_personal]);
+                    return $this->redirect(['personal/index']);
+                    // return $this->redirect(['view', 'id_personal' => $model->id_personal]);
                 } else {
                     // Jika save gagal, throw exception dengan error messages
                     $errors = array_merge($model->getFirstErrors(), $modelStaff->getFirstErrors());
@@ -231,6 +222,7 @@ class PersonalController extends Controller
             } catch (\Exception $e) {
                 $transaction->rollBack(); // Rollback jika ada error
                 \Yii::$app->session->setFlash('error', 'Update failed: ' . $e->getMessage());
+                return $this->redirect(Yii::$app->request->referrer);
             }
         }
 
@@ -255,8 +247,11 @@ class PersonalController extends Controller
      */
     public function actionDelete($id_personal)
     {
+        //delete relation from staff table integrity constraint
+        $staff = Staff::find()->where(['id_personal' => $id_personal])->one();
+        $staff->delete();
         $this->findModel($id_personal)->delete();
-
+        Yii::$app->session->setFlash('success', 'Data deleted successfully.');
         return $this->redirect(['index']);
     }
 
