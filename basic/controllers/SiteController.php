@@ -21,10 +21,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
+                'only' => ['logout', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -62,7 +62,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main';
+        // $this->layout = 'main';
         return $this->render('index');
     }
 
@@ -84,7 +84,7 @@ class SiteController extends Controller
         }
 
         $model->password = '';
-        return $this->render('login-new', [
+        return $this->render('login', [
             'model' => $model,
         ]);
     }

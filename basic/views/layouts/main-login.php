@@ -8,11 +8,11 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
-use app\assets\AppAsset;
+use app\assets\LoginAsset;
 use yii\widgets\Breadcrumbs;
 
 // appasset ni dari main-old by default
-AppAsset::register($this);
+LoginAsset::register($this);
 
 // yg ni dari default gentelella
 // $bundle = yiister\gentelella\assets\Asset::register($this);

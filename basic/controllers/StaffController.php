@@ -7,6 +7,7 @@ use app\models\Staff;
 use yii\web\Controller;
 use app\models\Personal;
 use app\models\StaffSearch;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
@@ -24,13 +25,26 @@ class StaffController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['update'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+            ],
+            [
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+            ],
+
         );
     }
 
@@ -90,10 +104,10 @@ class StaffController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                if($model->save(false)) {
-                      Yii::$app->session->setFlash('success', 'Data created successfully.');
-                }else {
-                      Yii::$app->session->setFlash('error', 'Data invalid.');
+                if ($model->save(false)) {
+                    Yii::$app->session->setFlash('success', 'Data created successfully.');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Data invalid.');
                 }
                 return $this->redirect(['staff/index']);
                 // return $this->redirect(['view', 'id_staff' => $model->id_staff]);

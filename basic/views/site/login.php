@@ -2,8 +2,8 @@
 
 /** @var yii\web\View $this */
 /** @var yii\bootstrap\ActiveForm $form */
-
 /** @var app\models\LoginForm $model */
+/** @var app\models\SignupForm $model */
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -11,45 +11,90 @@ use yii\bootstrap\Html;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- hidden anchors (penting untuk switch login/register) -->
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
 
-    <p>Please fill out the following fields to login:</p>
+    <div class="login_wrapper">
+        <!-- LOGIN FORM -->
+        <div class="animate form login_form">
+            <section class="login_content">
+                <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
-    <div class="row">
-        <div class="col-lg-5">
+                <?php $form = ActiveForm::begin([
+                    'id' => 'login-form',
+                    'layout' => 'horizontal',
+                    'fieldConfig' => ['template' => "{input}\n{error}"],
+                ]); ?>
 
-            <?php $form = ActiveForm::begin([
-                'id' => 'login-form',
-                'fieldConfig' => [
-                    'template' => "{label}\n{input}\n{error}",
-                    'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-                    'inputOptions' => ['class' => 'col-lg-3 form-control'],
-                    'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-                ],
-            ]); ?>
+                <?= $form->field($model, 'username')
+                    ->textInput(['autofocus' => true, 'placeholder' => 'Username'])
+                    ->label(false) ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'password')
+                    ->passwordInput(['placeholder' => 'Password'])
+                    ->label(false) ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
-
-            <?= $form->field($model, 'rememberMe')->checkbox([
-                'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            ]) ?>
-
-            <div class="form-group">
-                <div>
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <div class="form-group">
+                    <?= $form->field($model, 'rememberMe')->checkbox() ?>
                 </div>
-            </div>
 
-            <?php ActiveForm::end(); ?>
+                <div class="form-group">
+                    <?= Html::submitButton('Login', [
+                        'class' => 'btn btn-primary btn-block',
+                        'name' => 'login'
+                    ]) ?>
+                </div>
 
-            <div style="color:#999;">
-                You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-            </div>
+                <p class="reset_pass"><a href="#">Lost your password?</a></p>
 
+                <?php ActiveForm::end(); ?>
+
+                <div class="separator">
+                    <p class="change_link">New to site?
+                        <a href="#signup" class="to_register"> Create Account </a>
+                    </p>
+                </div>
+            </section>
         </div>
+
+        <!-- REGISTER FORM -->
+        <!-- <div id="register" class="animate form registration_form">
+            <section class="login_content">
+                <h1>Create Account</h1>
+
+                <?php $form = ActiveForm::begin([
+                    'id' => 'register-form',
+                    'layout' => 'horizontal',
+                    'fieldConfig' => ['template' => "{input}\n{error}"],
+                ]); ?>
+
+                <?= $form->field($model, 'username')
+                    ->textInput(['placeholder' => 'Username', 'required' => true])
+                    ->label(false) ?>
+
+                <?= $form->field($model, 'password')
+                    ->passwordInput(['placeholder' => 'Password', 'required' => true])
+                    ->label(false) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Submit', [
+                        'class' => 'btn btn-primary btn-block',
+                        'name' => 'register-button'
+                    ]) ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+
+                <div class="separator">
+                    <p class="change_link">Already a member ?
+                        <a href="#signin" class="to_register"> Log in </a>
+                    </p>
+                </div>
+            </section>
+        </div> -->
     </div>
 </div>
