@@ -248,8 +248,10 @@ class PersonalController extends Controller
     public function actionDelete($id_personal)
     {
         //delete relation from staff table integrity constraint
-        $staff = Staff::find()->where(['id_personal' => $id_personal])->one();
-        $staff->delete();
+        if($staff = Staff::find()->where(['id_personal' => $id_personal])->one()){
+            $staff->delete();
+        }
+        
         $this->findModel($id_personal)->delete();
         Yii::$app->session->setFlash('success', 'Data deleted successfully.');
         return $this->redirect(['index']);

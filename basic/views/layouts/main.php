@@ -5,6 +5,7 @@
  * @var \yii\web\View $this
  */
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
 use app\assets\AppAsset;
@@ -46,14 +47,14 @@ AppAsset::register($this);
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+                        <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>C.R.U.D</span></a>
                     </div>
                     <div class="clearfix"></div>
 
                     <!-- menu prile quick info -->
                     <div class="profile">
                         <div class="profile_pic">
-                            <img src="http://placehold.co/128x128" alt="..." class="img-circle profile_img">
+                            <img src="<?= Url::base(true) ?>/images/img.jpg" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
@@ -70,76 +71,73 @@ AppAsset::register($this);
                         <div class="menu_section">
                             <h3>General</h3>
                             <?=
-                        \yiister\gentelella\widgets\Menu::widget(
-                            [
-                                "items" => [
-                                    ["label" => "Home", "url" => "site/index", "icon" => "home"],
-                                    ["label" => "Personal", "url" => ["personal/index"], "icon" => "fas fa-user"],
-                                    ["label" => "Staff", "url" => ["staff/index"], "icon" => "fas fa-users"],
-                                    // ["label" => "Layout", "url" => ["site/layout"], "icon" => "files-o"],
-                                    // ["label" => "Error page", "url" => ["site/error-page"], "icon" => "close"],
-                                    // [
-                                    //     "label" => "Widgets",
-                                    //     "icon" => "th",
-                                    //     "url" => "#",
-                                    //     "items" => [
-                                    //         ["label" => "Menu", "url" => ["site/menu"]],
-                                    //         ["label" => "Panel", "url" => ["site/panel"]],
-                                    //     ],
-                                    // ]
-                                    // [
-                                    //     "label" => "Badges",
-                                    //     "url" => "#",
-                                    //     "icon" => "table",
-                                    //     "items" => [
-                                    //         [
-                                    //             "label" => "Default",
-                                    //             "url" => "#",
-                                    //             "badge" => "123",
-                                    //         ],
-                                    //         [
-                                    //             "label" => "Success",
-                                    //             "url" => "#",
-                                    //             "badge" => "new",
-                                    //             "badgeOptions" => ["class" => "label-success"],
-                                    //         ],
-                                    //         [
-                                    //             "label" => "Danger",
-                                    //             "url" => "#",
-                                    //             "badge" => "!",
-                                    //             "badgeOptions" => ["class" => "label-danger"],
-                                    //         ],
-                                    //     ],
-                                    // ],
-                                    // [
-                                    //     "label" => "Multilevel",
-                                    //     "url" => "#",
-                                    //     "icon" => "table",
-                                    //     "items" => [
-                                    //         [
-                                    //             "label" => "Second level 1",
-                                    //             "url" => "#",
-                                    //         ],
-                                    //         [
-                                    //             "label" => "Second level 2",
-                                    //             "url" => "#",
-                                    //             "items" => [
-                                    //                 [
-                                    //                     "label" => "Third level 1",
-                                    //                     "url" => "#",
-                                    //                 ],
-                                    //                 [
-                                    //                     "label" => "Third level 2",
-                                    //                     "url" => "#",
-                                    //                 ],
-                                    //             ],
-                                    //         ],
-                                    //     ],
-                                    // ],
-                                ],
-                            ]
-                        )
-                        ?>
+                            \yiister\gentelella\widgets\Menu::widget(
+                                [
+                                    "items" => [
+                                        ["label" => "Home", "url" => "site/index", "icon" => "home"],
+                                        ["label" => "Personal", "url" => ["personal/index"], "icon" => "fas fa-user"],
+                                        // ["label" => "Staff", "url" => ["staff/index"], "icon" => "fas fa-users"],
+                                        [
+                                            "label" => "Staff",
+                                            "icon" => "fas fa-users",
+                                            "url" => "#",
+                                            "items" => [
+                                                ["label" => "Staff List", "url" => ["staff/index"]],
+                                            ],
+                                        ]
+                                        // [
+                                        //     "label" => "Badges",
+                                        //     "url" => "#",
+                                        //     "icon" => "table",
+                                        //     "items" => [
+                                        //         [
+                                        //             "label" => "Default",
+                                        //             "url" => "#",
+                                        //             "badge" => "123",
+                                        //         ],
+                                        //         [
+                                        //             "label" => "Success",
+                                        //             "url" => "#",
+                                        //             "badge" => "new",
+                                        //             "badgeOptions" => ["class" => "label-success"],
+                                        //         ],
+                                        //         [
+                                        //             "label" => "Danger",
+                                        //             "url" => "#",
+                                        //             "badge" => "!",
+                                        //             "badgeOptions" => ["class" => "label-danger"],
+                                        //         ],
+                                        //     ],
+                                        // ],
+                                        // [
+                                        //     "label" => "Multilevel",
+                                        //     "url" => "#",
+                                        //     "icon" => "table",
+                                        //     "items" => [
+                                        //         [
+                                        //             "label" => "Second level 1",
+                                        //             "url" => "#",
+                                        //         ],
+                                        //         [
+                                        //             "label" => "Second level 2",
+                                        //             "url" => "#",
+                                        //             "items" => [
+                                        //                 [
+                                        //                     "label" => "Third level 1",
+                                        //                     "url" => "#",
+                                        //                 ],
+                                        //                 [
+                                        //                     "label" => "Third level 2",
+                                        //                     "url" => "#",
+                                        //                 ],
+                                        //             ],
+                                        //         ],
+                                        //     ],
+                                        // ],
+                                    ],
+                                ]
+                            )
+                            ?>
                         </div>
 
                     </div>
@@ -177,100 +175,18 @@ AppAsset::register($this);
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    <img src="http://placehold.co/128x128" alt="">John Doe
+                                    <img src="<?= Url::base(true) ?>/images/img.jpg" alt="">John Doe
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> Profile</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">Help</a>
-                                    </li>
-                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="http://placehold.co/128x128" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a href="/">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
+                                        <?= Yii::$app->user->isGuest ? (
+                                            '<a href="index.php?r=site/login"><i class="fa fa-sign-in pull-right"></i> Log In</a>'
+                                        ) : '<a data-method="post" href="' . Url::to(['/site/logout']) . '"><i class="fa fa-sign-out pull-right">
+                                        </i> Log Out (' . Yii::$app->user->identity->username . ')</a>'
+                                        ?>
                                     </li>
                                 </ul>
                             </li>
@@ -315,8 +231,6 @@ AppAsset::register($this);
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com" rel="nofollow"
-                        target="_blank">Colorlib</a><br />
                     Extension for Yii framework 2 by <a href="http://yiister.ru" rel="nofollow"
                         target="_blank">Yiister</a>
                 </div>
