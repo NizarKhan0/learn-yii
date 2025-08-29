@@ -66,81 +66,10 @@ AppAsset::register($this);
                     <br />
 
                     <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
-                        <div class="menu_section">
-                            <h3>General</h3>
-                            <?=
-                            \yiister\gentelella\widgets\Menu::widget(
-                                [
-                                    "items" => [
-                                        ["label" => "Home", "url" => "site/index", "icon" => "home"],
-                                        ["label" => "Personal", "url" => ["personal/index"], "icon" => "fas fa-user"],
-                                        // ["label" => "Staff", "url" => ["staff/index"], "icon" => "fas fa-users"],
-                                        [
-                                            "label" => "Staff",
-                                            "icon" => "fas fa-users",
-                                            "url" => "#",
-                                            "items" => [
-                                                ["label" => "Staff List", "url" => ["staff/index"]],
-                                            ],
-                                        ]
-                                        // [
-                                        //     "label" => "Badges",
-                                        //     "url" => "#",
-                                        //     "icon" => "table",
-                                        //     "items" => [
-                                        //         [
-                                        //             "label" => "Default",
-                                        //             "url" => "#",
-                                        //             "badge" => "123",
-                                        //         ],
-                                        //         [
-                                        //             "label" => "Success",
-                                        //             "url" => "#",
-                                        //             "badge" => "new",
-                                        //             "badgeOptions" => ["class" => "label-success"],
-                                        //         ],
-                                        //         [
-                                        //             "label" => "Danger",
-                                        //             "url" => "#",
-                                        //             "badge" => "!",
-                                        //             "badgeOptions" => ["class" => "label-danger"],
-                                        //         ],
-                                        //     ],
-                                        // ],
-                                        // [
-                                        //     "label" => "Multilevel",
-                                        //     "url" => "#",
-                                        //     "icon" => "table",
-                                        //     "items" => [
-                                        //         [
-                                        //             "label" => "Second level 1",
-                                        //             "url" => "#",
-                                        //         ],
-                                        //         [
-                                        //             "label" => "Second level 2",
-                                        //             "url" => "#",
-                                        //             "items" => [
-                                        //                 [
-                                        //                     "label" => "Third level 1",
-                                        //                     "url" => "#",
-                                        //                 ],
-                                        //                 [
-                                        //                     "label" => "Third level 2",
-                                        //                     "url" => "#",
-                                        //                 ],
-                                        //             ],
-                                        //         ],
-                                        //     ],
-                                        // ],
-                                    ],
-                                ]
-                            )
-                            ?>
-                        </div>
-
-                    </div>
+                    <?php
+                    $this->beginContent('@app/views/layouts/sidebar.php');
+                    $this->endContent();
+                    ?>
                     <!-- /sidebar menu -->
 
                     <!-- /menu footer buttons -->
@@ -163,44 +92,16 @@ AppAsset::register($this);
             </div>
 
             <!-- top navigation -->
-            <div class="top_nav">
-
-                <div class="nav_menu">
-                    <nav class="" role="navigation">
-                        <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <img src="<?= Url::base(true) ?>/images/img.jpg" alt="">John Doe
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a>
-                                    </li>
-                                    <li>
-                                        <?= Yii::$app->user->isGuest ? (
-                                            '<a href="index.php?r=site/login"><i class="fa fa-sign-in pull-right"></i> Log In</a>'
-                                        ) : '<a data-method="post" href="' . Url::to(['/site/logout']) . '"><i class="fa fa-sign-out pull-right">
-                                        </i> Log Out (' . Yii::$app->user->identity->username . ')</a>'
-                                        ?>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
-
-            </div>
+            <?php
+            $this->beginContent('@app/views/layouts/top-navigation.php');
+            $this->endContent();
+            ?>
             <!-- /top navigation -->
 
             <!-- page content -->
+            <!-- kalau ada variable kena pass sekali macam laravel component, sebab by default dia render main.php dari site controller action index -->
             <div class="right_col" role="main">
-                <?php if (isset($this->params['h1'])): ?>
+                <!-- <?php if (isset($this->params['h1'])): ?>
                 <div class="page-title">
                     <div class="title_left">
                         <h1><?= $this->params['h1'] ?></h1>
@@ -216,7 +117,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <?php endif; ?>
+                <?php endif; ?> -->
                 <div class="clearfix"></div>
 
                 <div class="container">
@@ -228,15 +129,15 @@ AppAsset::register($this);
                 </div>
             </div>
             <!-- /page content -->
+
+
             <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    Extension for Yii framework 2 by <a href="http://yiister.ru" rel="nofollow"
-                        target="_blank">Yiister</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
+            <?php
+            $this->beginContent('@app/views/layouts/footer.php');
+            $this->endContent();
+            ?>
             <!-- /footer content -->
+
         </div>
 
     </div>

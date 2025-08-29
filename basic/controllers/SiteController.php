@@ -12,6 +12,7 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    // public $layout = 'custom'; // SEMUA ACTION dalam controller ini guna layout 'custom'
     /**
      * {@inheritdoc}
      */
@@ -61,6 +62,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main';
         return $this->render('index');
     }
 

@@ -50,6 +50,7 @@ $config = [
             ],
         ],
         */
+        // Set global layout jadi deafult dia mcm livewire n filament kena ovveride php default
     ],
     'params' => $params,
 ];
